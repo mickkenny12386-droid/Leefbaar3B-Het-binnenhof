@@ -3,178 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leefbaar 3B | Eigen Volk Eerst</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Leefbaar 3B | Herkenbaar Nederland</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --l3b-green: #4f7c39;
             --l3b-orange: #f58220;
             --l3b-yellow: #ffcb05;
-            --white: #ffffff;
-            --black: #111111;
+            --dark-blue: #001a33;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background: #000; color: var(--white); overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--dark-blue); color: #fff; overflow-x: hidden; }
 
-        /* --- VLIEGEND LOGO ANIMATIE --- */
-        @keyframes floatLogo {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(10vw, 5vh) rotate(5deg); }
-            50% { transform: translate(-5vw, 10vh) rotate(-5deg); }
-            75% { transform: translate(5vw, -5vh) rotate(3deg); }
-            100% { transform: translate(0, 0) rotate(0deg); }
+        /* --- GEANIMEERDE ACHTERGROND --- */
+        .bg-gradient {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #003366 0%, #001122 100%);
+            z-index: -2;
         }
 
-        .floating-logo {
-            position: fixed; width: 100px; z-index: 50; pointer-events: none; opacity: 0.6;
-            animation: floatLogo 15s infinite ease-in-out;
+        .floating-orb {
+            position: absolute; width: 400px; height: 400px;
+            background: var(--l3b-green); filter: blur(150px);
+            opacity: 0.2; border-radius: 50%; z-index: -1;
+            animation: moveOrb 20s infinite alternate;
+        }
+
+        @keyframes moveOrb {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(110%, 110%); }
+        }
+
+        /* --- LOGO DAT "OVER HET SCHERM" VLIEGT --- */
+        .vliegend-logo {
+            position: fixed; width: 80px; z-index: 100; pointer-events: none;
+            filter: drop-shadow(0 0 15px rgba(245,130,32,0.5));
+            animation: flyAround 25s infinite linear;
+        }
+
+        @keyframes flyAround {
+            0% { top: 10%; left: -10%; transform: rotate(0deg); }
+            25% { top: 50%; left: 30%; transform: rotate(90deg); }
+            50% { top: 80%; left: 110%; transform: rotate(180deg); }
+            75% { top: 20%; left: 60%; transform: rotate(270deg); }
+            100% { top: 10%; left: -10%; transform: rotate(360deg); }
         }
 
         /* --- HERO SECTIE --- */
         header {
             height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1549001070-745a27867623?q=80&w=2000');
-            background-size: cover; text-align: center; position: relative;
+            text-align: center; padding: 0 20px;
         }
 
-        .glitch-text {
-            font-size: 6rem; font-weight: 900; color: var(--l3b-orange); text-transform: uppercase;
-            letter-spacing: -4px; line-height: 0.8; margin-bottom: 20px;
-            text-shadow: 4px 4px var(--l3b-green); animation: pulse 2s infinite;
+        .hero-tag {
+            background: var(--l3b-orange); color: #000; padding: 8px 20px;
+            font-weight: 900; border-radius: 50px; text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 20px; font-size: 0.9rem;
+            box-shadow: 0 0 20px rgba(245,130,32,0.4);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        header h1 {
+            font-size: clamp(3rem, 10vw, 7rem); font-weight: 900; line-height: 0.85;
+            text-transform: uppercase; letter-spacing: -4px;
+            background: linear-gradient(to bottom, #fff 50%, #ccc 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* --- NAVIGATIE --- */
-        nav { position: fixed; top: 20px; right: 20px; z-index: 1000; }
-        .nav-btn {
-            background: var(--l3b-green); color: white; border: none; padding: 15px 30px;
-            font-weight: 900; border-radius: 50px; cursor: pointer; transition: 0.4s;
-            box-shadow: 0 0 20px var(--l3b-green);
-        }
-        .nav-btn:hover { background: var(--l3b-orange); box-shadow: 0 0 30px var(--l3b-orange); transform: rotate(-3deg); }
+        .accent-text { color: var(--l3b-yellow); -webkit-text-fill-color: initial; }
 
-        /* --- PROVINCIE GRID --- */
-        .content-wrap { padding: 100px 5%; background: var(--white); color: var(--black); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-top: -150px; position: relative; z-index: 20; }
+        /* --- REGIO GRID (DUIDELIJKER & MODERN) --- */
+        .provincie-section { padding: 100px 5%; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px); }
+        .grid-title { text-align: center; font-size: 2.5rem; font-weight: 900; margin-bottom: 60px; }
+
+        .grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px; max-width: 1400px; margin: 0 auto;
+        }
 
         .card {
-            background: var(--l3b-green); color: white; padding: 40px 20px; border-radius: 10px;
-            text-align: center; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-bottom: 8px solid var(--l3b-orange);
+            background: var(--glass); border: 1px solid var(--glass-border);
+            padding: 40px; border-radius: 20px; position: relative;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            overflow: hidden; cursor: pointer;
         }
-        .card:hover { transform: scale(1.1) translateY(-10px); background: var(--l3b-orange); border-bottom-color: var(--l3b-yellow); }
-        .card h3 { font-size: 1.5rem; font-weight: 900; }
 
-        /* --- MODAL SLIDE-IN --- */
-        .modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
-            display: none; justify-content: center; align-items: center; z-index: 10000;
+        .card::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: var(--l3b-green); transition: 0.4s;
         }
-        .modal.show { display: flex; animation: zoomIn 0.3s forwards; }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: rgba(255,255,255,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card:hover::before { background: var(--l3b-orange); height: 10px; }
+
+        .card h3 { font-size: 1.8rem; font-weight: 900; margin-bottom: 10px; }
+        .card p { font-size: 0.9rem; color: #bbb; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- MODAL (MODERN SLIDE) --- */
+        .modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+            display: none; justify-content: center; align-items: center; z-index: 2000;
+            backdrop-filter: blur(20px);
+        }
+
+        .modal.show { display: flex; animation: fadeIn 0.4s; }
 
         .modal-box {
-            background: var(--white); width: 90%; max-width: 700px; padding: 60px;
-            border-radius: 20px; position: relative; color: var(--black);
-            border: 10px solid var(--l3b-green); transform: rotate(1deg);
+            background: #fff; color: #000; width: 95%; max-width: 800px;
+            padding: 80px 60px; border-radius: 30px; position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
 
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .close { position: absolute; top: 10px; right: 20px; font-size: 3rem; color: var(--l3b-orange); cursor: pointer; }
-        
-        .modal-title { font-size: 3rem; font-weight: 900; color: var(--l3b-green); margin-bottom: 20px; text-transform: uppercase; }
-        .modal-text { font-size: 1.3rem; line-height: 1.6; font-weight: 500; }
-        .modal-text b { color: var(--l3b-orange); }
+        .close { position: absolute; top: 30px; right: 40px; font-size: 3rem; cursor: pointer; color: var(--l3b-orange); }
 
-        footer { background: var(--black); padding: 50px; text-align: center; color: var(--l3b-green); font-weight: 900; letter-spacing: 2px; }
+        .modal-body h2 { font-size: 4rem; font-weight: 900; color: var(--l3b-green); margin-bottom: 20px; letter-spacing: -2px; }
+        .modal-body p { font-size: 1.4rem; line-height: 1.6; color: #333; }
+        .modal-body b { color: var(--l3b-orange); }
+
+        footer { padding: 80px; text-align: center; border-top: 1px solid var(--glass-border); margin-top: 50px; }
+        .footer-logo { font-size: 2rem; font-weight: 900; color: var(--l3b-orange); }
 
     </style>
 </head>
 <body>
 
-    <div class="floating-logo">
+    <div class="bg-gradient"></div>
+    <div class="floating-orb"></div>
+
+    <div class="vliegend-logo">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" y="10" width="60" height="60" fill="#f58220" rx="5" transform="rotate(-10 40 40)"/>
-            <rect x="30" y="30" width="60" height="60" fill="#4f7c39" rx="5"/>
-            <text x="42" y="72" font-family="Arial" font-size="25" font-weight="bold" fill="white">L3B</text>
+            <rect x="10" y="10" width="60" height="60" fill="#f58220" rx="8" transform="rotate(-12 40 40)"/>
+            <rect x="30" y="30" width="60" height="60" fill="#4f7c39" rx="8"/>
+            <text x="42" y="72" font-family="Arial" font-size="24" font-weight="bold" fill="white">L3B</text>
         </svg>
     </div>
 
-    <nav><button class="nav-btn" onclick="openVision()">ONZE VISIE</button></nav>
-
     <header>
-        <div class="hero">
-            <h1 class="glitch-text">EIGEN VOLK<br>EERST</h1>
-            <p style="font-size: 2rem; font-weight: 900; color: var(--l3b-yellow);">DE STEM VAN NEDERLAND</p>
-        </div>
+        <div class="hero-tag">Lijsttrekker Kenny</div>
+        <h1>Nederland<br><span class="accent-text">Op Één</span></h1>
+        <p style="margin-top: 30px; font-size: 1.2rem; opacity: 0.7; max-width: 600px;">Wij verdedigen onze cultuur, onze tradities en de veiligheid van onze eigen mensen. Zonder compromis.</p>
+        <a href="#regio" style="margin-top: 40px; color: #fff; text-decoration: none; border-bottom: 2px solid var(--l3b-yellow); padding-bottom: 5px; font-weight: 700;">ONTDEK ONZE PLANNEN ↓</a>
     </header>
 
-    <div class="content-wrap">
-        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: var(--l3b-green);">SELECTEER UW REGIO</h2>
-        <div class="grid" id="grid">
+    <section id="regio" class="provincie-section">
+        <h2 class="grid-title">PLANNEN PER REGIO</h2>
+        <div class="grid" id="main-grid">
             </div>
-    </div>
+    </section>
 
     <div id="modal" class="modal">
         <div class="modal-box">
             <span class="close" onclick="closeModal()">&times;</span>
-            <div id="modal-content"></div>
+            <div id="modal-content" class="modal-body"></div>
         </div>
     </div>
 
     <footer>
-        LEEFBAAR 3B | LIJSTTREKKER KENNY | NEDERLAND VOOR DE NEDERLANDERS
+        <div class="footer-logo">L3B</div>
+        <p style="margin-top: 10px; opacity: 0.5;">© 2026 Leefbaar 3B. De stem van het Nederlandse volk.</p>
     </footer>
 
     <script>
-        const provincies = [
-            { n: 'Groningen', t: 'Geen opvang in onze dorpen. Onze woningen en zorg zijn voor de <b>Groningers die hier generaties lang wonen</b>. Wij laten onze cultuur niet verdringen door vreemde invloeden.' },
-            { n: 'Friesland', t: 'Onze Friese trots en identiteit staan voorop. Wij beschermen onze taal en onze dorpen tegen de invloed van groepen die onze waarden niet delen.' },
-            { n: 'Drenthe', t: 'Rust en veiligheid voor de eigen inwoner. Geen AZC-dwang die onze tradities en veiligheid in gevaar brengt.' },
+        const data = [
+            { n: 'Groningen', t: 'Geen opvang in onze dorpen. Huizen en veiligheid zijn voor de <b>Groningers die hier generaties lang wonen</b>. Wij laten onze cultuur niet verdringen.' },
+            { n: 'Friesland', t: 'Onze Friese identiteit is heilig. Wij beschermen onze taal en tradities tegen invloeden die onze normen niet respecteren.' },
+            { n: 'Drenthe', t: 'Rust en veiligheid voor de eigen inwoner. Geen AZC-dwang die onze dorpscultuur onder druk zet.' },
             { n: 'Overijssel', t: 'Ruimte voor de echte Nederlander. Wij stoppen de voorrang voor statushouders en kiezen voor onze eigen woningzoekenden.' },
-            { n: 'Flevoland', t: 'Nieuwe grond voor onze eigen toekomst. Flevoland is gebouwd voor <b>onze eigen Nederlandse gezinnen</b>, niet voor grootschalige immigratie.' },
-            { n: 'Gelderland', t: 'Onze dorpen moeten herkenbaar blijven. Wij verdedigen onze Gelderse cultuur tegen elke vorm van islamisering.' },
-            { n: 'Utrecht', t: 'Genoeg is genoeg. Wij herstellen de Nederlandse normen in onze steden en wijken. Onze eigen mensen gaan voor.' },
-            { n: 'Noord-Holland', t: 'Amsterdam en de regio terug naar de Nederlander. Wij beschermen onze wijken tegen de invloed van parallelle samenlevingen.' },
-            { n: 'Zuid-Holland', t: 'Grip op de veiligheid in de Randstad. Wij kiezen onvoorwaardelijk voor de echte Nederlander die zich niet meer thuis voelt in eigen land.' },
-            { n: 'Zeeland', t: 'Onze Zeeuwse cultuur is heilig. Wij weren grootschalige opvanglocaties die onze gemeenschappen ontwrichten.' },
+            { n: 'Flevoland', t: 'Nieuwe grond voor onze eigen toekomst. Flevoland is er voor <b>onze eigen Nederlandse gezinnen</b>, niet voor massa-immigratie.' },
+            { n: 'Gelderland', t: 'Onze dorpen moeten herkenbaar blijven. Wij verdedigen de Gelderse cultuur tegen elke vorm van islamisering.' },
+            { n: 'Utrecht', t: 'Herstel de Nederlandse normen. Onze eigen mensen gaan voor op de woningmarkt en in de zorg.' },
+            { n: 'Noord-Holland', t: 'Amsterdam terug naar de Nederlander. Wij beschermen onze wijken tegen parallelle samenlevingen.' },
+            { n: 'Zuid-Holland', t: 'Veiligheid voor de echte Nederlander in de Randstad. Wij kiezen onvoorwaardelijk voor onze eigen cultuur.' },
+            { n: 'Zeeland', t: 'Onze Zeeuwse trots verdedigen. Geen grootschalige opvang die onze gemeenschappen ontwricht.' },
             { n: 'Noord-Brabant', t: 'Brabantse gezelligheid is voor ons eigen volk. Wij beschermen onze tradities tegen invloeden van buitenaf.' },
-            { n: 'Limburg', t: 'Onze grens, onze bescherming. Wij laten onze Limburgse identiteit niet verloren gaan door ongecontroleerde instroom.' }
+            { n: 'Limburg', t: 'Onze identiteit is geen discussiepunt. Wij beschermen de grenzen en de Limburgse cultuur.' }
         ];
 
-        const grid = document.getElementById('grid');
-        provincies.forEach(p => {
-            grid.innerHTML += `<div class="card" onclick="show('${p.n}', '${p.t}')"><h3>${p.n.toUpperCase()}</h3><p>KLIK VOOR PLAN</p></div>`;
+        const grid = document.getElementById('main-grid');
+        data.forEach(p => {
+            grid.innerHTML += `
+                <div class="card" onclick="openMod('${p.n}', '${p.t}')">
+                    <p>Regionaal plan</p>
+                    <h3>${p.n}</h3>
+                    <div style="color: var(--l3b-orange); font-weight: bold; margin-top: 15px;">LEES MEER →</div>
+                </div>
+            `;
         });
 
         const modal = document.getElementById('modal');
         const content = document.getElementById('modal-content');
 
-        function show(title, text) {
+        function openMod(title, text) {
             content.innerHTML = `
-                <h2 class="modal-title">${title}</h2>
-                <p class="modal-text">${text}</p>
-            `;
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function openVision() {
-            content.innerHTML = `
-                <h2 class="modal-title">ONZE KERN</h2>
-                <p class="modal-text">
-                    Wij trekken een harde grens bij de islamisering. Onze Nederlandse cultuur, gebouwd door onze voorouders, is de enige norm. 
-                    <b>De echte Nederlander staat onvoorwaardelijk op nummer één.</b><br><br>
-                    Wij accepteren geen parallelle samenlevingen waar Marokkaanse of andere niet-westerse culturen de boventoon voeren. 
-                    Wie hier is, past zich aan ons aan. Wij verdedigen onze eigen vlag, onze eigen identiteit en onze eigen mensen.<br><br>
-                    <b>GEEN WOORDEN, MAAR DADEN.</b>
-                </p>
+                <p style="color:var(--l3b-orange); font-weight:900; letter-spacing:2px; margin-bottom:10px;">STANDPUNT 2026</p>
+                <h2>${title}</h2>
+                <p>${text}</p>
+                <div style="margin-top:40px; padding:20px; background:#f0f0f0; border-radius:15px; font-weight:bold; color:var(--l3b-green);">
+                    WIJ KIEZEN VOOR ONZE EIGEN CULTUUR.
+                </div>
             `;
             modal.classList.add('show');
             document.body.style.overflow = 'hidden';
