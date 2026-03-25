@@ -3,243 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leefbaar3B | Stem voor het Centrum</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <title>Leefbaar3B | Landelijke Politiek</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #004a99; /* Politiek blauw */
-            --secondary: #e60000; /* Accent kleur */
-            --bg-light: #f4f7f6;
-            --text-dark: #1a1a1a;
+            --primary: #003399; /* Krachtig blauw voor stabiliteit */
+            --accent: #ff0000; /* Actie-rood */
+            --white: #ffffff;
+            --dark: #121212;
+            --gray: #f0f2f5;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            background: var(--bg-light);
-            color: var(--text-dark);
-        }
+        body { font-family: 'Roboto', sans-serif; background: var(--gray); color: var(--dark); overflow-x: hidden; }
 
-        /* Hero Sectie */
+        /* Smooth Hero Section */
         header {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&q=80&w=2070'); /* Vervang door eigen foto */
+            background: linear-gradient(135deg, rgba(0,51,153,0.85) 0%, rgba(0,20,60,0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1560508180-03f285f67ded?q=80&w=2070&auto=format&fit=crop'); 
             background-size: cover;
-            background-position: center;
+            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--white);
             text-align: center;
-            color: white;
-            padding: 0 20px;
         }
 
-        .hero-content h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+        .hero-text h1 { font-family: 'Montserrat', sans-serif; font-size: 5rem; font-weight: 900; letter-spacing: -2px; }
+        .hero-text p { font-size: 1.8rem; font-weight: 300; margin: 20px 0 40px; }
 
-        .hero-content p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        .btn {
-            padding: 15px 35px;
-            background: var(--primary);
+        .btn-main {
+            padding: 18px 45px;
+            background: var(--accent);
             color: white;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 5px;
             font-weight: bold;
-            transition: 0.3s;
-            border: 2px solid transparent;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-block;
         }
 
-        .btn:hover {
-            background: transparent;
-            border-color: white;
-        }
+        .btn-main:hover { transform: scale(1.1); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
 
-        /* Informatie Sectie */
-        .info-section {
-            padding: 100px 10% 50px;
-            text-align: center;
-        }
+        /* Intro Sectie */
+        .intro { padding: 100px 15%; text-align: center; background: white; }
+        .intro h2 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; margin-bottom: 30px; color: var(--primary); }
+        .leader-card { border-left: 5px solid var(--accent); padding: 20px; background: #f9f9f9; display: inline-block; text-align: left; }
 
-        .info-section h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .leader-box {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            max-width: 800px;
-            margin: 40px auto;
-        }
-
-        /* Regio Grid */
-        .regio-container {
-            padding: 50px 5%;
+        /* Provincie Grid */
+        .provincie-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            padding: 50px 5%;
         }
 
-        .regio-card {
+        .card {
             position: relative;
-            height: 400px;
-            border-radius: 20px;
+            height: 300px;
+            border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .regio-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .regio-img {
+        .card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: filter 0.3s;
+            transition: transform 0.6s ease;
         }
 
-        .regio-overlay {
+        .card:hover img { transform: scale(1.1); filter: brightness(50%); }
+
+        .card-info {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
             background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            padding: 30px;
             color: white;
         }
 
-        /* Modal (voor regio details) */
+        /* Modal / Popup */
         .modal {
-            display: none;
             position: fixed;
-            z-index: 1000;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            align-items: center;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            display: none;
             justify-content: center;
+            align-items: center;
+            z-index: 9999;
             padding: 20px;
         }
 
         .modal-content {
             background: white;
-            padding: 40px;
-            border-radius: 15px;
-            max-width: 600px;
+            padding: 50px;
+            max-width: 700px;
             width: 100%;
+            border-radius: 4px;
             position: relative;
+            animation: slideUp 0.4s ease;
         }
 
-        .close {
-            position: absolute;
-            top: 20px; right: 20px;
-            font-size: 30px; cursor: pointer;
-        }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        footer {
-            background: var(--primary);
-            color: white;
-            padding: 40px;
-            text-align: center;
-        }
+        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 2rem; cursor: pointer; color: var(--primary); }
+
+        footer { padding: 60px; background: var(--primary); color: white; text-align: center; }
+
     </style>
 </head>
 <body>
 
     <header>
-        <div class="hero-content">
-            <h1>Leefbaar 3B</h1>
-            <p>Samen bouwen aan een sterk centrum. Onder leiding van <strong>Lijsttrekker Kenny</strong>.</p>
-            <a href="#regios" class="btn">Bekijk de Standpunten</a>
+        <div class="hero-text">
+            <h1>LEEFBAAR 3B</h1>
+            <p>De nieuwe stem van Nederland. Onder leiding van <strong>Lijsttrekker Kenny</strong>.</p>
+            <a href="#provincies" class="btn-main">Ontdek onze plannen per provincie</a>
         </div>
     </header>
 
-    <section class="info-section">
-        <h2>Onze Visie</h2>
-        <div class="leader-box">
-            <p>Leefbaar 3B staat voor transparantie, daadkracht en luisteren naar de burger. Kenny en zijn team zijn klaar om de schouders eronder te zetten voor elke regio.</p>
+    <section class="intro">
+        <h2>Nederland verdient beter</h2>
+        <div class="leader-card">
+            <p><strong>Lijsttrekker Kenny:</strong> "Wij staan in het centrum van de samenleving. Geen loze beloftes, maar concrete plannen voor elke Nederlander, van de Randstad tot aan de grens."</p>
         </div>
     </section>
 
-    <h2 style="text-align: center; margin-top: 50px;" id="regios">Kies jouw Regio</h2>
-    <div class="regio-container">
+    <section id="provincies" class="provincie-grid">
         
-        <div class="regio-card" onclick="openModal('Berkel', '1. Meer groenvoorziening <br> 2. Betere bereikbaarheid <br> 3. Veiliger uitgaan voor jongeren')">
-            <img src="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?auto=format&fit=crop&q=80&w=1000" class="regio-img" alt="Regio 1">
-            <div class="regio-overlay">
-                <h3>Berkel en Rodenrijs</h3>
-                <p>Klik voor standpunten</p>
+        <div class="card" onclick="openModal('Zuid-Holland', '• Aanpak woningnood in de grote steden <br> • Betere OV-verbindingen tussen dorpen <br> • Behoud van de Rotterdamse haven-kracht')">
+            <img src="https://images.unsplash.com/photo-1534329535363-2f195d43c87a?q=80&w=1000&auto=format&fit=crop" alt="Zuid-Holland">
+            <div class="card-info">
+                <h3>Zuid-Holland</h3>
+                <p>Bekijk standpunten</p>
             </div>
         </div>
 
-        <div class="regio-card" onclick="openModal('Bleiswijk', '1. Behoud van lokale cultuur <br> 2. Meer woningbouw voor starters <br> 3. Versterking van de middenstand')">
-            <img src="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&q=80&w=1000" class="regio-img" alt="Regio 2">
-            <div class="regio-overlay">
-                <h3>Bleiswijk</h3>
-                <p>Klik voor standpunten</p>
+        <div class="card" onclick="openModal('Noord-Holland', '• Verduurzaming zonder lastenstijging voor burgers <br> • Aanpak Schiphol overlast <br> • Behoud van cultuurhistorie in Amsterdam en omstreken')">
+            <img src="https://images.unsplash.com/photo-1594411126620-80d860e3d937?q=80&w=1000&auto=format&fit=crop" alt="Noord-Holland">
+            <div class="card-info">
+                <h3>Noord-Holland</h3>
+                <p>Bekijk standpunten</p>
             </div>
         </div>
 
-        <div class="regio-card" onclick="openModal('Bergschenhoek', '1. Sportfaciliteiten moderniseren <br> 2. Aanpak van verkeersdrukte <br> 3. Extra steun voor lokale verenigingen')">
-            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=1000" class="regio-img" alt="Regio 3">
-            <div class="regio-overlay">
-                <h3>Bergschenhoek</h3>
-                <p>Klik voor standpunten</p>
+        <div class="card" onclick="openModal('Utrecht', '• Centraal knooppunt Nederland versterken <br> • Bescherming van de Utrechtse Heuvelrug <br> • Innovatieve zorg-oplossingen in de regio')">
+            <img src="https://images.unsplash.com/photo-1517404215738-15263e9f9178?q=80&w=1000&auto=format&fit=crop" alt="Utrecht">
+            <div class="card-info">
+                <h3>Utrecht</h3>
+                <p>Bekijk standpunten</p>
             </div>
         </div>
 
-    </div>
+        <div class="card" onclick="openModal('Noord-Brabant', '• Ondersteuning voor de agrarische sector <br> • Investeren in High-Tech regio Eindhoven <br> • Veiliger buitengebied tegen criminaliteit')">
+            <img src="https://images.unsplash.com/photo-1562621183-500e5a876a91?q=80&w=1000&auto=format&fit=crop" alt="Brabant">
+            <div class="card-info">
+                <h3>Noord-Brabant</h3>
+                <p>Bekijk standpunten</p>
+            </div>
+        </div>
 
-    <div id="regioModal" class="modal">
+    </section>
+
+    <div id="p-modal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle" style="color: var(--primary); margin-bottom: 20px;">Regio</h2>
-            <div id="modalBody" style="font-size: 1.1rem; line-height: 2;">
-                </div>
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="p-title" style="margin-bottom: 25px; color: var(--primary);"></h2>
+            <div id="p-body" style="font-size: 1.2rem; line-height: 1.8;"></div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Leefbaar 3B | Lijsttrekker Kenny</p>
-        <p>#StemLeefbaar3b</p>
+        <h2>Leefbaar 3B</h2>
+        <p style="margin: 20px 0;">#StemLeefbaar3b | Lijsttrekker Kenny</p>
+        <p style="font-size: 0.8rem; opacity: 0.6;">&copy; 2026 Leefbaar3B. Alle rechten voorbehouden.</p>
     </footer>
 
     <script>
-        function openModal(title, content) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalBody').innerHTML = content;
-            document.getElementById('regioModal').style.display = 'flex';
+        function openModal(title, text) {
+            document.getElementById('p-title').innerText = title;
+            document.getElementById('p-body').innerHTML = text;
+            document.getElementById('p-modal').style.display = 'flex';
         }
 
         function closeModal() {
-            document.getElementById('regioModal').style.display = 'none';
+            document.getElementById('p-modal').style.display = 'none';
         }
 
-        // Sluit modal als je buiten het witte vlak klikt
         window.onclick = function(event) {
-            let modal = document.getElementById('regioModal');
-            if (event.target == modal) {
+            if (event.target == document.getElementById('p-modal')) {
                 closeModal();
             }
         }
