@@ -3,254 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leefbaar3B | Onze Stem Voor Nederland</title>
+    <title>Leefbaar3B | De Stem van Nederland</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-blue: #003399; /* Stabiel, Hollands blauw */
-            --accent-red: #e60000;   /* Actie, krachtig rood */
-            --logo-orange: #f58220;  /* De exacte kleur oranje uit je logo */
-            --logo-green: #4f7c39;   /* De exacte kleur groen uit je logo */
+            --primary-blue: #003399;
+            --accent-red: #e60000;
+            --logo-orange: #f58220;
+            --logo-green: #4f7c39;
             --text-dark: #1a1a1a;
             --bg-light: #f4f7f6;
             --white: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-
         body { font-family: 'Montserrat', sans-serif; background: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
 
-        /* --- HET LOGO (NAGEMAAKT VAN FOTO) --- */
-        .logo-container {
-            position: relative;
-            width: 120px; /* Grootte van het totale logo */
-            height: 100px;
-            margin-bottom: 20px;
-        }
-
-        /* Het oranje vlak (achterste) */
-        .logo-orange-sq {
-            position: absolute;
-            width: 75px;
-            height: 75px;
-            background-color: var(--logo-orange);
-            top: 0;
-            left: 0;
-            transform: rotate(-10deg); /* Licht gedraaid zoals op foto */
-            border-radius: 5px;
-        }
-
-        /* Het groene vlak (voorste) */
-        .logo-green-sq {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background-color: var(--logo-green);
-            bottom: 0;
-            right: 0;
-            border-radius: 5px;
+        /* --- NAVIGATIE --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: white;
+            padding: 10px 5%;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            z-index: 9999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        /* De tekst L3B */
-        .logo-text {
-            color: var(--white);
-            font-size: 2.5rem;
-            font-weight: 900;
-            letter-spacing: -2px;
+        .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 900; color: var(--primary-blue); font-size: 1.2rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-left: 20px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            cursor: pointer;
         }
+        .nav-links a:hover { color: var(--accent-red); }
 
-        /* --- HERO SECTIE (BOVENAAN) --- */
+        /* --- HERO --- */
         header {
             height: 100vh;
             background: linear-gradient(135deg, rgba(0,51,153,0.9) 0%, rgba(0,20,60,1) 100%), 
                         url('https://images.unsplash.com/photo-1559160580-b6e82a6ed822?q=80&w=2070&auto=format&fit=crop'); 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            text-align: center;
-            padding: 0 20px;
+            background-size: cover; background-attachment: fixed;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center;
         }
 
-        .hero-text h1 { font-size: 4.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -3px; margin-bottom: 10px; }
-        .hero-text p { font-size: 1.6rem; font-weight: 400; margin-bottom: 40px; opacity: 0.9; }
+        /* LOGO NAGEMAAKT */
+        .logo-container { position: relative; width: 120px; height: 100px; margin-bottom: 20px; }
+        .logo-orange-sq { position: absolute; width: 75px; height: 75px; background: var(--logo-orange); top: 0; left: 0; transform: rotate(-10deg); border-radius: 5px; }
+        .logo-green-sq { position: absolute; width: 80px; height: 80px; background: var(--logo-green); bottom: 0; right: 0; border-radius: 5px; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); }
+        .logo-text { color: white; font-size: 2.5rem; font-weight: 900; letter-spacing: -2px; }
 
-        .btn-action {
-            padding: 18px 50px;
-            background: var(--accent-red);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(230,0,0,0.4);
+        .hero-text h1 { font-size: 4rem; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
+
+        /* --- CONTENT PAGINA'S --- */
+        .page { display: none; padding: 100px 10%; min-height: 80vh; animation: fadeIn 0.5s ease forwards; }
+        .page.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 30px; font-weight: 900; }
+        p { font-size: 1.15rem; line-height: 1.8; margin-bottom: 20px; color: #333; }
+
+        /* --- ONZE GRENS (TEGEN SECTIE) --- */
+        .grens-card {
+            background: white;
+            border-left: 8px solid var(--accent-red);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-top: 30px;
         }
-
-        .btn-action:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(230,0,0,0.6); }
-
-        /* --- INFO SECTIE (HOOFDPAGINA TEKST) --- */
-        .main-info { padding: 100px 10%; background: var(--white); line-height: 1.8; }
-        .main-info h2 { font-size: 2.8rem; color: var(--primary-blue); margin-bottom: 30px; font-weight: 800; }
-        .main-info p { font-size: 1.2rem; margin-bottom: 25px; color: #444; }
-        .leader-quote {
-            border-left: 6px solid var(--accent-red);
-            padding: 20px 30px;
-            background: #f9f9f9;
-            margin: 40px 0;
-            font-style: italic;
-            font-size: 1.3rem;
-        }
+        .grens-card h3 { color: var(--accent-red); font-size: 1.8rem; margin-bottom: 20px; font-weight: 800; }
 
         /* --- PROVINCIE GRID --- */
-        .grid-section { padding: 80px 5%; background: var(--bg-light); }
-        .grid-section h2 { text-align: center; font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 50px; }
-        
-        .provincie-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-        }
+        .provincie-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-top: 40px; }
+        .card { position: relative; height: 300px; border-radius: 10px; overflow: hidden; cursor: pointer; transition: 0.4s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(230,0,0,0.2); }
+        .card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .card:hover img { transform: scale(1.1); filter: brightness(50%); }
+        .card-overlay { position: absolute; inset: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 25px; color: white; display: flex; flex-direction: column; justify-content: flex-end; }
+        .card-overlay h3 { font-size: 1.6rem; font-weight: 800; }
 
-        .card {
-            position: relative;
-            height: 350px;
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* Smooth curve */
-        }
+        /* --- MODAL --- */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 10000; padding: 20px; }
+        .modal-content { background: white; padding: 40px; max-width: 700px; width: 100%; border-radius: 8px; position: relative; transform: scale(0.8); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .modal.show { display: flex; } 
+        .modal.show .modal-content { transform: scale(1); }
+        .close { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: var(--primary-blue); }
 
-        .card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        /* --- ANIMATIE: HOVER EFFECT OP KAART --- */
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(230,0,0,0.3); /* Rode gloed bij hover */
-        }
-
-        .card:hover img { transform: scale(1.1); filter: brightness(60%); }
-
-        .card-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 30px;
-            color: var(--white);
-            transition: all 0.4s ease;
-        }
-
-        .card:hover .card-overlay h3 { font-size: 2.2rem; color: var(--logo-orange); } /* Tekst wordt groter en oranje */
-
-        .card-overlay h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 5px; transition: all 0.3s ease; }
-        .card-overlay p { font-size: 1rem; opacity: 0.8; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
-
-        /* --- MODAL (HET POPUP SCHERM) --- */
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.9);
-            display: none; /* Standaard verborgen */
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show { display: flex; opacity: 1; }
-
-        /* --- ANIMATIE: DE MODAL POP-UP (BOUNCE) --- */
-        .modal-content {
-            background: var(--white);
-            padding: 60px;
-            max-width: 800px;
-            width: 100%;
-            border-radius: 8px;
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            
-            /* De animatie start hier */
-            transform: scale(0.7); /* Start kleiner */
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bounce curve */
-        }
-
-        .modal.show .modal-content {
-            transform: scale(1); /* Eindigt op ware grootte */
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            font-size: 2.5rem;
-            cursor: pointer;
-            color: var(--primary-blue);
-            transition: color 0.2s ease;
-        }
-
-        .close-btn:hover { color: var(--accent-red); }
-
-        .modal-body h2 { font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 10px; font-weight: 900; }
-        .modal-body h4 { font-size: 1.2rem; color: #666; font-weight: 400; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
-        .modal-body p { font-size: 1.15rem; line-height: 1.9; color: #333; margin-bottom: 20px; }
-
-        footer { padding: 60px; background: var(--primary-blue); color: var(--white); text-align: center; }
-
+        footer { padding: 50px; background: var(--primary-blue); color: white; text-align: center; }
     </style>
 </head>
 <body>
 
-    <header>
+    <nav>
+        <div class="nav-logo">
+            <div style="width:25px; height:25px; background:var(--logo-green); border-radius:3px;"></div>
+            Leefbaar 3B
+        </div>
+        <div class="nav-links">
+            <a onclick="showPage('home')">Visie</a>
+            <a onclick="showPage('provincies')">Regio's</a>
+            <a onclick="showPage('tegen')">Onze Grens</a>
+        </div>
+    </nav>
+
+    <header id="hero">
         <div class="logo-container">
             <div class="logo-orange-sq"></div>
-            <div class="logo-green-sq">
-                <span class="logo-text">L3B</span>
-            </div>
+            <div class="logo-green-sq"><span class="logo-text">L3B</span></div>
         </div>
-
         <div class="hero-text">
             <h1>LEEFBAAR 3B</h1>
             <p>De nuchtere stem van Nederland. Onder leiding van <strong>Lijsttrekker Kenny</strong>.</p>
-            <a href="#plannen" class="btn-action">Bekijk onze standpunten</a>
         </div>
     </header>
 
-    <section id="visie" class="main-info">
-        <h2>Onze Visie voor Nederland</h2>
-        <p>Wij zijn een landelijke beweging die gelooft dat de politiek in Den Haag de verbinding met de werkelijkheid is verloren. Al 25 jaar bewijzen wij lokaal dat politiek pas echt werkt als je luisteren naar de mensen in de straat, de ondernemers op het industrieterrein en de vrijwilligers bij de sportclub. Voor ons staat de Nederlander op nummer één. Dat is geen loze kreet, maar een noodzakelijke keuze in een tijd waarin de draagkracht van ons land onder enorme druk staat.</p>
-        
-        <div class="leader-quote">
-            <p><strong>Lijsttrekker Kenny:</strong> "Een land kan pas voor anderen zorgen als het eigen huis op orde is. Wij kiezen onvoorwaardelijk voor de leefbaarheid en veiligheid in onze eigen wijken en dorpen."</p>
-        </div>
+    <main id="home" class="page active">
+        <h2>Onze Visie</h2>
+        <p>Wij zijn een landelijke beweging die gelooft dat de politiek in Den Haag de verbinding met de werkelijkheid is verloren. Al 25 jaar bewijzen wij lokaal dat politiek pas echt werkt als je luistert naar de mensen in de straat. Voor ons staat de Nederlander op nummer één.</p>
+        <p>Wij laten ons niet sturen door een landelijk kader of vage idealen uit de ivoren toren. Onze koers wordt bepaald door u. Dat betekent dat we stoppen met de dwang vanuit Den Haag en de macht terugleggen waar die hoort: bij de samenleving.</p>
+    </main>
 
-        <p>De belangen van onze eigen inwoners, onze winkeliers en onze verenigingen vormen de kern van alles wat we doen. Wij accepteren niet langer dat de landelijke overheid voorrang geeft aan de opvang van asielzoekers terwijl onze eigen starters en senioren jarenlang op een wachtlijst staan voor een woning.</p>
-        <p>Wij laten ons niet sturen door een landelijk kader of vage idealen uit de ivoren toren. Onze koers wordt bepaald door u. Dat betekent dat we stoppen met de dwang vanuit Den Haag en de macht terugleggen waar die hoort: bij de samenleving. Wij kiezen voor een nuchter Nederland waar hard werken loont, waar tradities worden gekoesterd en waar de eigen burger weer op de eerste plaats komt te staan. Geen politiek correcte praatjes, maar gezond verstand en een hart voor onze eigen mensen.</p>
-    </section>
-
-    <section id="plannen" class="grid-section">
+    <main id="provincies" class="page">
         <h2>Plannen per Regio</h2>
         <div class="provincie-grid">
-            
             <div class="card" onclick="openModal('Zuid-Holland', 'Ruimte voor de werker, niet voor de opvang', 'In de drukste provincie van het land staat de leefbaarheid op het spel. Wij kiezen voor de Zuid-Hollander die elke dag in de file staat om de economie draaiende te houden. Dat betekent: investeren in asfalt en doorstroming, niet in nog meer beperkingen voor de automobilist. We bouwen huizen voor onze eigen starters in het Westland en de Rijnmond, in plaats van kostbare bouwgrond weg te geven aan grootschalige AZC’s. Onze havens en kassen zijn de motor van de regio; die verstikken we niet met Haagse regeltjes, maar geven we de ruimte om te ondernemen.')">
                 <img src="https://wallpapers.com/images/hd/rotterdam-erasmus-bridge-skyline-p2h4drpwws5me4vj.jpg">
                 <div class="card-overlay">
@@ -260,7 +144,7 @@
             </div>
 
             <div class="card" onclick="openModal('Noord-Holland', 'Behoud van karakter en eigen woningmarkt', 'Noord-Holland is meer dan alleen Amsterdam. Wij komen op voor de dorpen in de kop van Noord-Holland en de gemeenten in de regio Kennemerland. Onze eigen jongeren moeten in hun eigen dorp kunnen blijven wonen. Daarom maken we een einde aan de voorrangsregels voor statushouders op de sociale woningmarkt. We beschermen onze polders tegen een wildgroei aan windmolens en zonneparken die het landschap verpesten. De Noord-Hollander verdient een veilige straat en een overheid die de eigen cultuur en tradities koestert.')">
-                <img src="https://www.voyageavecnous.fr/wp-content/uploads/2023/06/amsterdam-periode-de-noel.jpg" alt="Noord-Holland">
+                <img src="https://www.voyageavecnous.fr/wp-content/uploads/2023/06/amsterdam-periode-de-noel.jpg">
                 <div class="card-overlay">
                     <h3>Noord-Holland</h3>
                     <p>Bekijk standpunten</p>
@@ -268,7 +152,7 @@
             </div>
 
             <div class="card" onclick="openModal('Noord-Brabant', 'Onze boeren en de Brabantse gezelligheid eerst', 'In Brabant weten we wat aanpakken is, maar de grenzen van de gastvrijheid zijn bereikt. Wij trekken een streep bij de komst van enorme opvanglocaties die de veiligheid in onze dorpen onder druk zetten. De Brabantse boer, die zorgt voor ons eten en het onderhoud van het landschap, verdient respect en ruimte in plaats van onhaalbare milieueisen. Wij kiezen voor de lokale mkb’er en het rijke verenigingsleven dat onze dorpen verbindt. Brabant moet Brabants blijven: veilig, ondernemend en met de eigen mensen op de eerste plaats.')">
-                <img src="https://www.gebiedsontwikkeling.nu/images/3jfiDbbv7Go6Kqy-cJWDT8qcfVY=/14934/fill-590x332/47.jpg" alt="Noord-Brabant">
+                <img src="https://www.gebiedsontwikkeling.nu/images/3jfiDbbv7Go6Kqy-cJWDT8qcfVY=/14934/fill-590x332/47.jpg">
                 <div class="card-overlay">
                     <h3>Noord-Brabant</h3>
                     <p>Bekijk standpunten</p>
@@ -276,7 +160,7 @@
             </div>
 
             <div class="card" onclick="openModal('Utrecht', 'De centrale as moet bereikbaar en veilig blijven', 'Als het hart van Nederland wordt Utrecht overspoeld door landelijke besluiten. Wij zeggen: genoeg is genoeg. We stoppen met het opofferen van onze schaarse ruimte voor landelijke opvangcentra. De veiligheid in onze steden en de bereikbaarheid van de regio voor de gewone burger staan voorop. Wij bouwen voor de Utrechters die nu tussen wal en schip vallen en zorgen dat de publieke voorzieningen, van zorg tot politie, weer beschikbaar zijn voor de mensen die dit land hebben opgebouwd.')">
-                <img src="https://media.indebuurt.nl/utrecht/2016/09/08045413/Domtoren-met-fietser%40-Ramon-Mosterd-e1497969021296.jpg" alt="Utrecht">
+                <img src="https://media.indebuurt.nl/utrecht/2016/09/08045413/Domtoren-met-fietser%40-Ramon-Mosterd-e1497969021296.jpg">
                 <div class="card-overlay">
                     <h3>Utrecht</h3>
                     <p>Bekijk standpunten</p>
@@ -284,66 +168,73 @@
             </div>
 
             <div class="card" onclick="openModal('Gelderland', 'Rust in de regio en ruimte voor de burger', 'Van de Veluwe tot de Achterhoek: Gelderland is de plek van rust en ruimte. Dat willen we zo houden. Wij verzetten ons tegen de Haagse dwang om asielzoekers in onze rustige gemeenten te plaatsen. Onze dorpen moeten hun eigen identiteit kunnen behouden. Wij investeren in goede wegen en bereikbaarheid van de regio, zodat de Gelderlander niet afhankelijk is van een verschralend aanbod van openbaar vervoer. Wij staan pal voor de tradities en de vrijheid van de mensen in de regio.')">
-                <img src="https://www.wearetravellers.nl/wp-content/uploads/Doornenburg-kastelen-Gelderland-1.jpg" alt="Gelderland">
+                <img src="https://www.wearetravellers.nl/wp-content/uploads/Doornenburg-kastelen-Gelderland-1.jpg">
                 <div class="card-overlay">
                     <h3>Gelderland</h3>
                     <p>Bekijk standpunten</p>
                 </div>
             </div>
-
         </div>
-    </section>
+    </main>
+
+    <main id="tegen" class="page">
+        <h2>Onze Grens: Waar wij tegen zijn</h2>
+        <div class="grens-card">
+            <h3>Tegen de Islamisering</h3>
+            <p>Wij trekken een duidelijke grens bij de toenemende islamisering van onze samenleving. Onze Nederlandse cultuur, met waarden als de gelijkwaardigheid van man en vrouw en de vrijheid van meningsuiting, is de onbetwiste norm. Wij accepteren geen parallelle samenlevingen waarin religieuze regels boven onze eigen wetten en tradities worden geplaatst.</p>
+            <p>De invloed van onverdraagzame ideologieën in onze wijken, scholen en gebedshuizen moet gestopt worden. Wij kiezen voor een immigratiestop voor groepen uit culturen die haaks staan op onze manier van leven. Het is tijd om de herkenbaarheid en de veiligheid van onze eigen straten terug te winnen.</p>
+            <p><strong>Wie hier wil wonen, past zich volledig aan ons aan, en niet andersom.</strong> Wij staan pal voor de vrijheid van onze eigen burgers en het behoud van onze eigen identiteit.</p>
+        </div>
+    </main>
 
     <div id="info-modal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div class="modal-body">
-                <h2 id="m-title"></h2>
-                <h4 id="m-subtitle"></h4>
-                <div id="m-body"></div>
-            </div>
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="m-title"></h2>
+            <h4 id="m-subtitle" style="margin-bottom:20px; color:var(--accent-red);"></h4>
+            <p id="m-body"></p>
         </div>
     </div>
 
     <footer>
-        <h2>Leefbaar 3B</h2>
-        <p style="margin: 15px 0; opacity: 0.8;">#StemLeefbaar3b | Voor de Nederlander op nummer één</p>
-        <p style="font-size: 0.85rem; opacity: 0.5;">&copy; 2026 Leefbaar3B. Alle rechten voorbehouden. Lijsttrekker Kenny.</p>
+        <p>&copy; 2026 Leefbaar 3B | #StemLeefbaar3b</p>
     </footer>
 
     <script>
-        // Functie om de modal te openen met de juiste tekst en animatie
+        function showPage(pageId) {
+            // Verberg alle pagina's
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.classList.remove('active'));
+            
+            // Toon de gekozen pagina
+            document.getElementById(pageId).classList.add('active');
+
+            // Scroll naar boven bij paginawissel
+            if(pageId !== 'home') {
+                window.scrollTo(0, 400); 
+            } else {
+                window.scrollTo(0, 0);
+            }
+        }
+
         function openModal(title, subtitle, text) {
             document.getElementById('m-title').innerText = title;
             document.getElementById('m-subtitle').innerText = subtitle;
-            
-            // We splitsen de tekst op '•' om er een lijst van te maken (als dat nodig is), 
-            // maar hier nemen we de hele tekst over.
-            document.getElementById('m-body').innerHTML = '<p>' + text + '</p>';
-            
-            // Voeg de klasse 'show' toe om de animatie te starten
+            document.getElementById('m-body').innerText = text;
             document.getElementById('info-modal').classList.add('show');
-            
-            // Voorkom scrollen op de achtergrond
             document.body.style.overflow = 'hidden';
         }
 
-        // Functie om de modal te sluiten
         function closeModal() {
             document.getElementById('info-modal').classList.remove('show');
-            
-            // Sta scrollen weer toe
             document.body.style.overflow = 'auto';
         }
 
-        // Sluit modal als je buiten het witte vlak klikt
         window.onclick = function(event) {
-            let modal = document.getElementById('info-modal');
-            if (event.target == modal) {
+            if (event.target == document.getElementById('info-modal')) {
                 closeModal();
             }
         }
     </script>
-
 </body>
 </html>
